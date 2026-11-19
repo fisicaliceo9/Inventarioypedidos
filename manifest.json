@@ -1,0 +1,19 @@
+{
+  "name": "Laboratorio de Física — Liceo 9",
+  "short_name": "Lab Física",
+  "description": "Inventario, altas/bajas y pedidos del Laboratorio de Física del Liceo 9",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f9",
+  "theme_color": "#0f766e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
