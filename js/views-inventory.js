@@ -22,10 +22,10 @@ window.ViewsInventory = (() => {
     const nameField = ui.type === 'herramienta' ? 'Herramienta' : 'Material';
     const idField = ui.type === 'herramienta' ? 'ID_herramienta' : 'ID_material';
 
-    const catsSet = new Set(['Todas']);
+    const catsSet = new Set();
     (state.listas && state.listas.Categorias || []).forEach((c) => catsSet.add(c));
     allItems.forEach((it) => { if (it[catField]) catsSet.add(it[catField]); });
-    const cats = Array.from(catsSet);
+    const cats = ['Todas', ...Array.from(catsSet).sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }))];
 
     const q = normText(ui.search);
     const filtered = allItems.filter((it) => {
@@ -240,7 +240,7 @@ window.ViewsInventory = (() => {
     const id = existing ? (isHerr ? existing.ID_herramienta : existing.ID_material) : '';
     const nombre = existing ? (isHerr ? existing.Herramienta : existing.Material) : '';
     const cat = existing ? (isHerr ? existing.Categoria : existing.REF_categoria) : '';
-    const cats = (app.state.listas && app.state.listas.Categorias) || ['Mecánica', 'Electricidad', 'Óptica', 'Ondas', 'Termodinámica', 'Medición', 'Instrumentos en general', 'Herramientas'];
+    const cats = ((app.state.listas && app.state.listas.Categorias) || ['Mecánica', 'Electricidad', 'Magnetismo', 'Óptica', 'Ondas', 'Termodinámica', 'Medición', 'Instrumentos en general', 'Herramientas']).slice().sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
     const estados = (app.state.listas && app.state.listas.Estados) || ['Bueno', 'Regular', 'Malo', 'Reparar', 'Faltante', 'Baja', 'Sin revisar'];
     const previewUrl = existing && existing.Foto ? driveThumbUrl(existing.Foto, 500) : '';
 
