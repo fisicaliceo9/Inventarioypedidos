@@ -59,8 +59,8 @@
             { id: 'admin', label: 'Admin', icon: '⚙️', badge: pendUsers }
           ]
         : [
+            { id: 'cart', label: 'Nuevo Pedido', icon: '🛒' },
             { id: 'inventory', label: 'Inventario', icon: '📦' },
-            { id: 'cart', label: 'Nuevo Pedido', icon: '🛒', badge: cartCount },
             { id: 'orders', label: 'Mis Pedidos', icon: '📋' }
           ];
 
@@ -123,6 +123,7 @@
 
     enterApp(session) {
       this.session = session;
+      this.currentTab = this.isPreparador() ? 'inventory' : 'cart';
       document.getElementById('auth-screen').classList.add('hidden');
       document.getElementById('app-shell').classList.remove('hidden');
       document.getElementById('topbar-user').textContent = `${session.user.nombre} · ${session.user.rol}`;
