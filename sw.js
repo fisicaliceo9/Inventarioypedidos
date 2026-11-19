@@ -1,9 +1,9 @@
-const CACHE_NAME = 'lab-fisica-v3';
+const CACHE_NAME = 'lab-fisica-v5';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.json',
-  './icon.svg',
+  './logo-liceo9.jpg',
   './css/styles.css',
   './js/utils.js',
   './js/api.js',
