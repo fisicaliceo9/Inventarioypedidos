@@ -162,10 +162,11 @@ window.ViewsInventory = (() => {
             <strong>${escapeHtml(id)}</strong> · ${escapeHtml(it[catField] || 'Sin categoría')}<br/>
             📍 ${escapeHtml(formatUbicacion(it))} · <span class="badge ${statusBadgeClass(it.Estado)}">${escapeHtml(it.Estado || 'Bueno')}</span>
           </div>
+          ${isPrep ? `
           <div class="item-actions">
             <button class="btn btn-primary btn-sm" data-add-cart="${escapeHtml(id)}" ${disp <= 0 ? 'disabled' : ''}>+ Pedir</button>
-            ${isPrep ? `<button class="btn btn-outline btn-sm" data-edit="${escapeHtml(id)}">Editar</button>` : ''}
-          </div>
+            <button class="btn btn-outline btn-sm" data-edit="${escapeHtml(id)}">Editar</button>
+          </div>` : ''}
         </div>
       </article>
     `;
@@ -198,23 +199,27 @@ window.ViewsInventory = (() => {
         <img src="${escapeHtml(qrUrl)}" alt="QR" style="width:130px;height:130px;border:1px solid var(--border);border-radius:10px;padding:4px" />
         <div class="muted" style="font-size:0.78rem">Código QR · ${escapeHtml(id)}</div>
       </div>
+      ${isPrep ? `
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button id="det-add-cart" class="btn btn-primary" style="flex:1" ${Number(it.Cantidad_disponible || 0) <= 0 ? 'disabled' : ''}>+ Agregar a pedido</button>
-        ${isPrep ? `<button id="det-edit" class="btn btn-outline">Editar</button>` : ''}
-        ${isPrep ? `<button id="det-ab" class="btn btn-secondary">Alta / Baja</button>` : ''}
-      </div>
+        <button id="det-edit" class="btn btn-outline">Editar</button>
+        <button id="det-ab" class="btn btn-secondary">Alta / Baja</button>
+      </div>` : ''}
     `);
 
-    document.getElementById('det-add-cart').addEventListener('click', () => {
-      app.addToCart({
-        id,
-        codigo: it.Codigo_inventario || id,
-        nombre,
-        tipoItem,
-        disponible: Number(it.Cantidad_disponible || 0)
+    const detAdd = document.getElementById('det-add-cart');
+    if (detAdd) {
+      detAdd.addEventListener('click', () => {
+        app.addToCart({
+          id,
+          codigo: it.Codigo_inventario || id,
+          nombre,
+          tipoItem,
+          disponible: Number(it.Cantidad_disponible || 0)
+        });
+        closeModal();
       });
-      closeModal();
-    });
+    }
 
     const editBtn = document.getElementById('det-edit');
     if (editBtn) {
