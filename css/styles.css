@@ -55,7 +55,7 @@ html, body {
 }
 
 .auth-header { text-align: center; margin-bottom: 18px; }
-.auth-logo { width: 58px; height: 58px; margin-bottom: 8px; }
+.auth-logo { width: 92px; height: 92px; margin-bottom: 8px; border-radius: 50%; object-fit: contain; background: #fff; padding: 3px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12); }
 .auth-header h1 { margin: 0; font-size: 1.35rem; color: var(--text); }
 .auth-subtitle { margin: 4px 0 10px; color: var(--muted); font-size: 0.9rem; }
 .privacy-badge {
@@ -124,7 +124,7 @@ html, body {
 }
 
 .topbar-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.topbar-logo { width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0; }
+.topbar-logo { width: 38px; height: 38px; border-radius: 50%; object-fit: contain; background: #fff; padding: 2px; flex-shrink: 0; }
 .topbar-title { font-weight: 700; font-size: 1rem; line-height: 1.15; }
 .topbar-user {
   font-size: 0.76rem;
