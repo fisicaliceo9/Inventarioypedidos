@@ -49,8 +49,10 @@ window.ViewsInventory = (() => {
           <button class="chip ${ui.type === 'herramienta' ? 'active' : ''}" data-type="herramienta">Herramientas (${(state.herramientas || []).length})</button>
           ${isPrep ? `<button class="chip ${ui.onlyLowStock ? 'active' : ''}" id="chip-low">Bajo stock (≤${umbral})</button>` : ''}
         </div>
-        <div class="chips" id="cat-chips">
-          ${cats.map((c) => `<button class="chip ${ui.category === c ? 'active' : ''}" data-cat="${escapeHtml(c)}">${escapeHtml(c)}</button>`).join('')}
+        <div style="margin-top:4px">
+          <select id="inv-cat-select" aria-label="Filtrar por categoría" style="padding:9px 12px;font-size:0.92rem">
+            ${cats.map((c) => `<option value="${escapeHtml(c)}" ${ui.category === c ? 'selected' : ''}>${c === 'Todas' ? 'Categoría: Todas' : escapeHtml(c)}</option>`).join('')}
+          </select>
         </div>
       </div>
 
@@ -93,11 +95,9 @@ window.ViewsInventory = (() => {
       });
     }
 
-    container.querySelectorAll('[data-cat]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        ui.category = btn.dataset.cat;
-        render(container, app);
-      });
+    document.getElementById('inv-cat-select').addEventListener('change', (e) => {
+      ui.category = e.target.value;
+      render(container, app);
     });
 
     const openNew = () => openItemForm(null, ui.type, app);
