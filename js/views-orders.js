@@ -4,6 +4,7 @@ window.ViewsOrders = (() => {
   const ui = { filterStatus: 'Todos' };
 
   function renderCart(container, app) {
+    const isPrep = app.isPreparador();
     const cart = app.cart;
     const turnos = (app.state.listas && app.state.listas.Turnos) || ['Matutino', 'Vespertino', 'Nocturno', 'Otro'];
     const tiposUso = (app.state.listas && app.state.listas.Tipos_uso) || ['Laboratorio', 'Salón'];
@@ -13,9 +14,10 @@ window.ViewsOrders = (() => {
     container.innerHTML = `
       <div class="section-header">
         <h2>Nuevo Pedido</h2>
-        ${cart.length ? `<button id="btn-clear-cart" class="btn btn-outline btn-sm">Vaciar</button>` : ''}
+        ${isPrep && cart.length ? `<button id="btn-clear-cart" class="btn btn-outline btn-sm">Vaciar</button>` : ''}
       </div>
 
+      ${isPrep ? `
       <div class="card">
         <h3 style="margin:0 0 10px">Materiales seleccionados (${cart.length})</h3>
         ${cart.length === 0
@@ -33,7 +35,7 @@ window.ViewsOrders = (() => {
               </div>
             </div>`).join('')
         }
-      </div>
+      </div>` : ''}
 
       <div class="card">
         <form id="form-order">
@@ -75,8 +77,8 @@ window.ViewsOrders = (() => {
           </div>
 
           <div class="field">
-            <label for="o-obs">Observaciones / materiales adicionales</label>
-            <textarea id="o-obs" placeholder="Aclara detalles del armado o materiales que no encontraste en el catálogo..."></textarea>
+            <label for="o-obs">${isPrep ? 'Observaciones / materiales adicionales' : 'Materiales solicitados y observaciones *'}</label>
+            <textarea id="o-obs" ${isPrep ? '' : 'required'} placeholder="${isPrep ? 'Aclara detalles del armado o materiales que no encontraste en el catálogo...' : 'Describe los materiales, cantidades y detalles del armado que necesitas para la práctica...'}"></textarea>
           </div>
 
           <div class="field">
