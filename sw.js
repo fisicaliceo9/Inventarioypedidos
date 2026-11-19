@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lab-fisica-v2';
+const CACHE_NAME = 'lab-fisica-v3';
 const APP_SHELL = [
   './',
   './index.html',
